@@ -12,3 +12,9 @@ SELECT nazwisko, imie FROM pracownik ORDER BY nazwisko ASC, imie ASC;
 --2.3 Wyswietlic zawartosc kolumn nazwisko, dzial, stanowisko z tabeli pracownik. Wynik posortuj rosnaco wzgledem dzialu, a dla tych samych nazw dzialow malejaco wzgledem stanowiska.
 SELECT nazwisko, dzial, stanowisko FROM pracownik ORDER BY dzial ASC, stanowisko DESC;
 
+--3.1 Wyswietlic niepowtarzajace sie wartosci kolumny dzial z tabeli pracownik.
+SELECT DISTINCT dzial FROM pracownik;
+--3.2 Wyswietlic unikatowe wiersze zawierajace wartosci kolumn dzial i stanowisko w tabeli pracownik.
+SELECT DISTINCT dzial, stanowisko FROM pracownik;
+--3.3 Wyswietlic unikatowe wiersze zawierajace wartosci kolumn dzial i stanowisko w tabeli pracownik. Wynik posortuj malejaco wzgledem dzialu i stanowiska.
+SELECT DISTINCT dzial, stanowisko FROM pracownik ORDER BY dzial DESC, stanowisko DESC;
