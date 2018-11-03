@@ -53,3 +53,11 @@ SELECT imie, nazwisko FROM klient WHERE nazwisko LIKE '%k%';
 SELECT imie, nazwisko FROM klient WHERE nazwisko LIKE 'D%ski';
 --7.3 Znalezc imiona i nazwiska klientow, ktorych nazwisko zawiera druga litere O lub A.
 SELECT imie, nazwisko FROM klient WHERE nazwisko LIKE '_a%' OR nazwisko LIKE '_o%';
+
+--8 Predykat BETWEEN
+--8.1 Z tabeli samochod wyswietlic wiersze, dla ktorych pojemnosc silnika jest z przedzialu [1100,1600].
+SELECT * FROM samochod WHERE poj_silnika BETWEEN 1100 AND 1600;
+--8.2 Znalezc pracownikow, ktorzy zostali zatrudnieni pomiedzy datami 1997-01-01 a 1997-12-31.
+SELECT * FROM pracownik WHERE data_zatr BETWEEN '1997-01-01' AND '1997-12-31';
+--8.3 Znalezc samochody, dla ktorych przebieg jest pomiedzy 10000 a 20000 km lub pomiedzy 30000 a 40000 km.
+SELECT * FROM samochod WHERE przebieg BETWEEN 10000 AND 20000 OR przebieg BETWEEN 30000 AND 40000;
