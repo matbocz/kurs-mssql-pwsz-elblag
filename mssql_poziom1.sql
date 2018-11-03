@@ -77,3 +77,11 @@ SELECT imie, nazwisko, pensja, COALESCE(dodatek, 0) AS dodatek, pensja+COALESCE(
 SELECT imie, nazwisko, 1.5*pensja AS nowa_pensja FROM pracownik;
 --10.3 Dla kazdego pracownika oblicz ile wynosi 1% zarobkow (pensja + dodatek). Wyswietl imie, nazwisko i obliczony 1%. Wyniki posortuj rosnaco wzgledem obliczonego 1%.
 SELECT imie, nazwisko, 0.01*(pensja+COALESCE(dodatek, 0)) AS jeden_procent_pensji FROM pracownik ORDER BY jeden_procent_pensji ASC;
+
+--11 Ograniczanie wynikow wyszukiwania (TOP)
+--11.1 Znajdz imie i nazwisko pracownika, ktory jako pierwszy zostal zatrudniony w wypozyczalni samochodow. Jest tylko jeden taki pracownik.
+SELECT TOP 1 imie, nazwisko FROM pracownik ORDER BY data_zatr ASC;
+--11.2 Wyswietl pierwszych czterech pracownikow z alfabetycznej listy (nazwiska i imiona) wszystkich pracownikow.
+SELECT TOP 4 nazwisko, imie FROM pracownik ORDER BY nazwisko ASC, imie ASC;
+--11.3 Wyszukaj informacje o ostatnim wypozyczeniu samochodu.
+SELECT TOP 1 * FROM wypozyczenie ORDER BY data_wyp DESC;
