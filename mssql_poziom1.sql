@@ -93,3 +93,11 @@ SELECT imie, nazwisko, data_zatr FROM pracownik WHERE MONTH(data_zatr)=5 ORDER B
 SELECT imie, nazwisko, DATEDIFF(DAY, data_zatr, GETDATE()) AS ile_pracuje_dni FROM pracownik ORDER BY ile_pracuje_dni DESC;
 --12.3 Dla kazdego samochodu (marka, typ) oblicz ile lat uplynelo od jego produkcji. Wynik posortuj malejaco po ilosci lat.
 SELECT marka, typ, DATEDIFF(YEAR, data_prod, GETDATE()) AS ile_lat_od_produkcji FROM samochod ORDER BY ile_lat_od_produkcji DESC;
+
+--13 Wybrane funkcje operujace na napisach (LEFT, RIGHT, LEN, UPPER, LOWER, STUFF)
+--13.1 Wyswietl imie, nazwisko i inicjaly kazdego klienta. Wynik posortuj wzgledem inicjalow, nazwiska i imienia klienta.
+SELECT imie, nazwisko, LEFT(imie, 1)+'. '+LEFT(nazwisko, 1)+'.' AS inicjaly FROM klient ORDER BY inicjaly, nazwisko, imie;
+--13.2 Wyswietl imiona i nazwiska klientow w taki sposob, aby pierwsza litera imienia i nazwiska byla wielka, a pozostale male.
+SELECT UPPER(LEFT(imie, 1))+LOWER(STUFF(imie, 1, 1, '')), UPPER(LEFT(nazwisko, 1))+LOWER(STUFF(nazwisko, 1, 1, '')) FROM klient;
+--13.3 Wyswietl imiona, nazwiska i numery kart kredytowych klientow. Kazda z ostatnich szesciu cyfr wyswietlanego numeru karty kredytowej klienta powinna byc zastapiona znakiem x.
+SELECT imie, nazwisko, STUFF(nr_karty_kredyt, 6, 6, 'xxxxxx') FROM klient;
