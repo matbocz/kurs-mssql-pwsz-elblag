@@ -85,3 +85,11 @@ SELECT TOP 1 imie, nazwisko FROM pracownik ORDER BY data_zatr ASC;
 SELECT TOP 4 nazwisko, imie FROM pracownik ORDER BY nazwisko ASC, imie ASC;
 --11.3 Wyszukaj informacje o ostatnim wypozyczeniu samochodu.
 SELECT TOP 1 * FROM wypozyczenie ORDER BY data_wyp DESC;
+
+--12 Wybrane funkcje daty i czasu (DAY, MONTH, YEAR, GETDATE, DATEDIFF)
+--12.1 Wyszukaj pracownikow zatrudnionych w maju. Wyswietl ich imiona, nazwiska i date zatrudnienia. Wynik posortuj rosnaco wzgledem nazwiska i imienia.
+SELECT imie, nazwisko, data_zatr FROM pracownik WHERE MONTH(data_zatr)=5 ORDER BY nazwisko ASC, imie ASC;
+--12.2 Dla kazdego pracownika (imie i nazwisko) oblicz ile juz pracuje dni. Wynik posortuj malejaco wedlug ilosci przepracowanych dni.
+SELECT imie, nazwisko, DATEDIFF(DAY, data_zatr, GETDATE()) AS ile_pracuje_dni FROM pracownik ORDER BY ile_pracuje_dni DESC;
+--12.3 Dla kazdego samochodu (marka, typ) oblicz ile lat uplynelo od jego produkcji. Wynik posortuj malejaco po ilosci lat.
+SELECT marka, typ, DATEDIFF(YEAR, data_prod, GETDATE()) AS ile_lat_od_produkcji FROM samochod ORDER BY ile_lat_od_produkcji DESC;
