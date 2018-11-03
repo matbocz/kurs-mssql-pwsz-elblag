@@ -61,3 +61,11 @@ SELECT * FROM samochod WHERE poj_silnika BETWEEN 1100 AND 1600;
 SELECT * FROM pracownik WHERE data_zatr BETWEEN '1997-01-01' AND '1997-12-31';
 --8.3 Znalezc samochody, dla ktorych przebieg jest pomiedzy 10000 a 20000 km lub pomiedzy 30000 a 40000 km.
 SELECT * FROM samochod WHERE przebieg BETWEEN 10000 AND 20000 OR przebieg BETWEEN 30000 AND 40000;
+
+--9 Wartosc NULL
+--9.1 Znalezc pracownikow, ktorzy nie maja okreslonego dodatku do pensji.
+SELECT * FROM pracownik WHERE dodatek IS NULL;
+--9.2 Wyswietlic klientow, ktorzy posiadaja karte kredytowa.
+SELECT * FROM klient WHERE nr_karty_kredyt IS NOT NULL;
+--9.3 Dla kazdego pracownika wyswietl imie, nazwisko i wysokosc dodatku. Wartosc NULL z kolumny dodatek powinna byc wyswietlona jako 0.  Wskazowka: Uzyj funkcji COALESCE.
+SELECT imie, nazwisko, COALESCE(dodatek, 0) AS dodatek FROM pracownik;
