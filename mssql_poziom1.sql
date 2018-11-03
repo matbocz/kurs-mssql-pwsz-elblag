@@ -67,11 +67,11 @@ SELECT * FROM samochod WHERE przebieg BETWEEN 10000 AND 20000 OR przebieg BETWEE
 SELECT * FROM pracownik WHERE dodatek IS NULL;
 --9.2 Wyswietlic klientow, ktorzy posiadaja karte kredytowa.
 SELECT * FROM klient WHERE nr_karty_kredyt IS NOT NULL;
---9.3 Dla kazdego pracownika wyswietl imie, nazwisko i wysokosc dodatku. Wartosc NULL z kolumny dodatek powinna byc wyswietlona jako 0.  Wskazowka: Uzyj funkcji COALESCE.
+--9.3 Dla kazdego pracownika wyswietl imie, nazwisko i wysokosc dodatku. Wartosc NULL z kolumny dodatek powinna byc wyswietlona jako 0.
 SELECT imie, nazwisko, COALESCE(dodatek, 0) AS dodatek FROM pracownik;
 
 --10 Kolumny wyliczeniowe (COALESCE)
---10.1 Wyswietlic imiona, nazwiska pracownikow ich pensje i dodatki oraz kolumne wyliczeniowa do_zaplaty, zawierajaca sume pensji i dodatku. Wskazowka: Wartosc NULL z kolumny dodatek powinna byc wyswietlona jako zero.
+--10.1 Wyswietlic imiona, nazwiska pracownikow ich pensje i dodatki oraz kolumne wyliczeniowa do_zaplaty, zawierajaca sume pensji i dodatku.
 SELECT imie, nazwisko, pensja, COALESCE(dodatek, 0) AS dodatek, pensja+COALESCE(dodatek, 0) AS do_zaplaty FROM pracownik;
 --10.2 Dla kazdego pracownika wyswietl imie, nazwisko i wyliczeniowa kolumne nowa_pensja, ktora bedzie miala o 50% wieksza wartosc niz dotychczasowa pensja.
 SELECT imie, nazwisko, 1.5*pensja AS nowa_pensja FROM pracownik;
