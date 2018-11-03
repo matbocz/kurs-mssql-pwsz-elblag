@@ -45,3 +45,11 @@ SELECT * FROM samochod WHERE marka IN ('Mercedes', 'Seat', 'Opel');
 SELECT imie, nazwisko, data_zatr FROM pracownik WHERE imie IN ('Anna', 'Marzena', 'Alicja');
 --6.3 Znajdz klientow, ktorzy nie mieszkaja w Warszawie lub we Wroclawiu. Wyswietl ich imiona, nazwiska i miasta zamieszkania.
 SELECT imie, nazwisko, miasto FROM klient WHERE miasto NOT IN ('Warszawa', 'Wroc³aw');
+
+--7 Predykat LIKE
+--7.1 Wyswietlic imiona i nazwiska klientow, ktorych nazwisko zawiera litere K.
+SELECT imie, nazwisko FROM klient WHERE nazwisko LIKE '%k%';
+--7.2 Wyswietlic imiona i nazwiska klientow, dla ktorych nazwisko zaczyna sie na D, a konczy sie na SKI.
+SELECT imie, nazwisko FROM klient WHERE nazwisko LIKE 'D%ski';
+--7.3 Znalezc imiona i nazwiska klientow, ktorych nazwisko zawiera druga litere O lub A.
+SELECT imie, nazwisko FROM klient WHERE nazwisko LIKE '_a%' OR nazwisko LIKE '_o%';
