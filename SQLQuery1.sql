@@ -69,3 +69,11 @@ SELECT * FROM pracownik WHERE dodatek IS NULL;
 SELECT * FROM klient WHERE nr_karty_kredyt IS NOT NULL;
 --9.3 Dla kazdego pracownika wyswietl imie, nazwisko i wysokosc dodatku. Wartosc NULL z kolumny dodatek powinna byc wyswietlona jako 0.  Wskazowka: Uzyj funkcji COALESCE.
 SELECT imie, nazwisko, COALESCE(dodatek, 0) AS dodatek FROM pracownik;
+
+--10 Kolumny wyliczeniowe (COALESCE)
+--10.1 Wyswietlic imiona, nazwiska pracownikow ich pensje i dodatki oraz kolumne wyliczeniowa do_zaplaty, zawierajaca sume pensji i dodatku. Wskazowka: Wartosc NULL z kolumny dodatek powinna byc wyswietlona jako zero.
+SELECT imie, nazwisko, pensja, COALESCE(dodatek, 0) AS dodatek, pensja+COALESCE(dodatek, 0) AS do_zaplaty FROM pracownik;
+--10.2 Dla kazdego pracownika wyswietl imie, nazwisko i wyliczeniowa kolumne nowa_pensja, ktora bedzie miala o 50% wieksza wartosc niz dotychczasowa pensja.
+SELECT imie, nazwisko, 1.5*pensja AS nowa_pensja FROM pracownik;
+--10.3 Dla kazdego pracownika oblicz ile wynosi 1% zarobkow (pensja + dodatek). Wyswietl imie, nazwisko i obliczony 1%. Wyniki posortuj rosnaco wzgledem obliczonego 1%.
+SELECT imie, nazwisko, 0.01*(pensja+COALESCE(dodatek, 0)) AS jeden_procent_pensji FROM pracownik ORDER BY jeden_procent_pensji ASC;
