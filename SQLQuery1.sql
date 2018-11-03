@@ -18,3 +18,17 @@ SELECT DISTINCT dzial FROM pracownik;
 SELECT DISTINCT dzial, stanowisko FROM pracownik;
 --3.3 Wyswietlic unikatowe wiersze zawierajace wartosci kolumn dzial i stanowisko w tabeli pracownik. Wynik posortuj malejaco wzgledem dzialu i stanowiska.
 SELECT DISTINCT dzial, stanowisko FROM pracownik ORDER BY dzial DESC, stanowisko DESC;
+
+--4.1 Znajdz pracownikow o imieniu Jan.  Wyswietl ich imiona i nazwiska.
+SELECT imie, nazwisko FROM pracownik WHERE imie='Jan';
+--4.2 Wyswietlic imiona i nazwiska pracownikow pracujacych na stanowisku sprzedawca.
+SELECT imie, nazwisko FROM pracownik WHERE stanowisko='sprzedawca';
+--4.3 Wyswietlic imiona, nazwiska, pensje pracownikow, ktorzy zarabiaja powyzej 1500 zl. Wynik posortuj malejaco wzgledem pensji.
+SELECT imie, nazwisko, pensja FROM pracownik WHERE pensja>1500 ORDER BY pensja DESC;
+
+--5.1 Z tabeli pracownik wyswietlic imiona, nazwiska, dzialy, stanowiska tych pracownikow, ktorzy pracuja w dziale obslugi klienta na stanowisku sprzedawca.
+SELECT imie, nazwisko, dzial, stanowisko FROM pracownik WHERE dzial='obs³uga klienta' AND stanowisko='sprzedawca';
+--5.2 Znalezc pracownikow pracujacych w dziale technicznym na stanowisku kierownika lub sprzedawcy. Wyswietl imie, nazwisko, dzial, stanowisko.
+SELECT imie, nazwisko, dzial, stanowisko FROM pracownik WHERE dzial='techniczny' AND stanowisko='kierownik' OR dzial='techniczny' AND stanowisko='sprzedawca';
+--5.3 Znalezc samochody, ktore nie sa marek fiat i ford.
+SELECT * FROM samochod WHERE marka!='Fiat' AND marka!='Ford';
