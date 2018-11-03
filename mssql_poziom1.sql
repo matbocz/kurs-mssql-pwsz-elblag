@@ -101,3 +101,11 @@ SELECT imie, nazwisko, LEFT(imie, 1)+'. '+LEFT(nazwisko, 1)+'.' AS inicjaly FROM
 SELECT UPPER(LEFT(imie, 1))+LOWER(STUFF(imie, 1, 1, '')), UPPER(LEFT(nazwisko, 1))+LOWER(STUFF(nazwisko, 1, 1, '')) FROM klient;
 --13.3 Wyswietl imiona, nazwiska i numery kart kredytowych klientow. Kazda z ostatnich szesciu cyfr wyswietlanego numeru karty kredytowej klienta powinna byc zastapiona znakiem x.
 SELECT imie, nazwisko, STUFF(nr_karty_kredyt, 6, 6, 'xxxxxx') FROM klient;
+
+--14 Modyfikacja danych w bazie danych (UPDATE)
+--14.1 Pracownikom, ktorzy nie maja okreslonej wysokosci dodatku nadaj dodatek w wysokosci 50 zl.
+UPDATE pracownik SET dodatek=50 WHERE dodatek IS NULL;
+--14.2 Klientowi o identyfikatorze rownym 10 zmien imie i nazwisko na Jerzy Nowak.
+UPDATE klient SET imie='Jerzy', nazwisko='Nowak' WHERE id_klient=10;
+--14.3 Zwieksz o 100 zl dodatek pracownikom, ktorych pensja jest mniejsza niz 1500 zl.
+UPDATE pracownik SET dodatek=dodatek+100 WHERE pensja<1500;
