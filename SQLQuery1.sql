@@ -32,3 +32,10 @@ SELECT imie, nazwisko, dzial, stanowisko FROM pracownik WHERE dzial='obs³uga kli
 SELECT imie, nazwisko, dzial, stanowisko FROM pracownik WHERE dzial='techniczny' AND stanowisko='kierownik' OR dzial='techniczny' AND stanowisko='sprzedawca';
 --5.3 Znalezc samochody, ktore nie sa marek fiat i ford.
 SELECT * FROM samochod WHERE marka!='Fiat' AND marka!='Ford';
+
+--6.1 Znalezc samochody marek mercedes, seat i opel.
+SELECT * FROM samochod WHERE marka IN ('Mercedes', 'Seat', 'Opel');
+--6.2 Znajdz pracownikow o imionach Anna, Marzena i Alicja. Wyswietl ich imiona, nazwiska i daty zatrudnienia.
+SELECT imie, nazwisko, data_zatr FROM pracownik WHERE imie IN ('Anna', 'Marzena', 'Alicja');
+--6.3 Znajdz klientow, ktorzy nie mieszkaja w Warszawie lub we Wroclawiu. Wyswietl ich imiona, nazwiska i miasta zamieszkania.
+SELECT imie, nazwisko, miasto FROM klient WHERE miasto NOT IN ('Warszawa', 'Wroc³aw');
