@@ -109,3 +109,11 @@ UPDATE pracownik SET dodatek=50 WHERE dodatek IS NULL;
 UPDATE klient SET imie='Jerzy', nazwisko='Nowak' WHERE id_klient=10;
 --14.3 Zwieksz o 100 zl dodatek pracownikom, ktorych pensja jest mniejsza niz 1500 zl.
 UPDATE pracownik SET dodatek=dodatek+100 WHERE pensja<1500;
+
+--15 Usuwanie danych z bazy danych (DELETE)
+--15.1 Usunac klienta o identyfikatorze rownym  17.
+DELETE FROM klient WHERE id_klient=17;
+--15.2 Usunac wszystkie  informacje o wypozyczeniach dla klienta o identyfikatorze rownym 17.
+DELETE FROM wypozyczenie WHERE id_klient=17;
+--15.3 Usun wszystkie samochody o przebiegu wiekszym niz 60000.
+DELETE FROM samochod WHERE przebieg>60000;
