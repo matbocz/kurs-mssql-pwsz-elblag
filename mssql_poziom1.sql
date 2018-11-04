@@ -117,3 +117,11 @@ DELETE FROM klient WHERE id_klient=17;
 DELETE FROM wypozyczenie WHERE id_klient=17;
 --15.3 Usun wszystkie samochody o przebiegu wiekszym niz 60000.
 DELETE FROM samochod WHERE przebieg>60000;
+
+--16 Dodawanie danych do bazy danych (INSERT)
+--16.1 Dodaj do bazy danych klienta o identyfikatorze rownym 121: Adam Cichy zamieszkaly ul. Korzenna 12, 00-950 Warszawa, tel. 123-454-321.
+INSERT INTO klient(id_klient, imie, nazwisko, ulica, numer, kod, miasto, telefon) VALUES(121, 'Adam', 'Cichy', 'Korzenna', '12', '00-950', 'Warszawa', '123-454-321');
+--16.2 Dodaj do bazy danych nowy samochod o identyfikatorze rownym 50: srebrna skoda octavia o pojemnosci silnika 1896 cm3 wyprodukowana 1 wrzesnia 2012 r. i o przebiegu 5 000 km.
+INSERT INTO samochod(id_samochod, kolor, marka, typ, poj_silnika, data_prod, przebieg) VALUES(50, 'srebrny', 'Skoda', 'Octavia', 1896, '2012-09-01', 5000);
+--16.3 Dodaj do bazy danych pracownika: Alojzy Mikos zatrudniony od 11 sierpnia 2010 r. w dziale zaopatrzenie na stanowisku magazyniera z pensja 3000 zl i dodatkiem 50 zl, telefon do pracownika: 501-501-501, pracownik pracuje w Warszawie na ul. Lewartowskiego 12, kod pocztowy: 00-950.
+INSERT INTO pracownik(id_pracownik, imie, nazwisko, data_zatr, dzial, stanowisko, pensja, dodatek, telefon, id_miejsce) VALUES(120, 'Alojzy', 'Mikos', '2010-10-11', 'zaopatrzenie', 'magazynier', 3000, 50, '501-501-501', 1);
