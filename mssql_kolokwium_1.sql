@@ -18,6 +18,19 @@ DELETE FROM producent WHERE id_producent NOT IN(SELECT DISTINCT id_producent FRO
 
 --4 Dla kazdego roku (tabela zamowienie, kolumna data_zamowienia), oblicz ile bylo zlozonych zamowien.
 --  Wynik posortuj rosnaco wzgledem roku. Uzyj funkcji YEAR.
+SELECT YEAR(data_zamowienia), COUNT(id_zamowienie) AS ilosc_zamowien
+FROM zamowienie
+GROUP BY YEAR(data_zamowienia)
+ORDER BY YEAR(data_zamowienia) ASC;
 
 --5 Stworz widok zawierajacy zestawienie nazw kategorii i nazw kupionych produktow z tych kategorii.
 --  Wykorzystaj powyzszy widok, aby obliczyc ile razy sie powtarza kazda krotka w widoku.
+CREATE VIEW kat_prod AS
+SELECT k.nazwa AS kategoria, p.nazwa AS produkt
+FROM kategoria k JOIN podkategoria pdk ON k.id_kategoria = pdk.id_kategoria
+JOIN produkt p ON pdk.id_podkategoria = p.id_podkategoria
+
+SELECT kategoria, COUNT(kategoria) AS ilosc
+FROM kat_prod
+GROUP BY kategoria
+ORDER BY COUNT(kategoria) DESC;
