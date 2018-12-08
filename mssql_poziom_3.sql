@@ -86,16 +86,15 @@ ALTER TABLE zwierze2 ADD FOREIGN KEY(id_kraj) REFERENCES kraj2(id_kraj);
 --     Wsk: Zwroc uwage na kolejnosc usuwania tabel. 
 --     Wersja trudniejsza: Czy potrafisz najpierw sprawdzic, czy tabele istnieja i jesli istnieja to dopiero wtedy  je usunac?
 DROP TABLE przedmiot2;
-DROP table kategoria2;
+DROP TABLE kategoria2;
 --30.2 Dana jest tabela: CREATE TABLE osoba2(id_osoba INT, imie VARCHAR(15), imie2 VARCHAR(15) ); 
 --     Napisac instrukcje SQL, ktora z tabeli osoba2 usunie kolumne imie2.
-
+ALTER TABLE osoba2 DROP COLUMN imie2;
 --20.3 Dana jest tabela: CREATE TABLE uczen2(id_uczen INT PRIMARY KEY, imie VARCHAR(15), nazwisko VARCHAR(20) 
 --     CONSTRAINT uczen_nazwisko_unique UNIQUE); 
 --     Napisac instrukcje SQL, ktora usunie narzucony warunek unikatowosci na kolumne nazwisko. 
 --     Wersja trudniejsza: Czy potrafilbys zrobic powyzsze zadanie dla definicji tabeli: CREATE TABLE uczen2(id_uczen INT 
 --     PRIMARY KEY, imie VARCHAR(15), nazwisko VARCHAR(20) CONSTRAINT UNIQUE); ?
-
 
 --31   Usuwanie i modyfikacja kaskadowa (CREATE i ALTER)
 --31.1 Utworz tabele wlasciciel2(id_wlasciciel, imie,nazwisko,data_ur,ulica,numer,kod,miejscowosc) i 
