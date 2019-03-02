@@ -1,3 +1,5 @@
+--18560 Mateusz Boczarski
+
 --17   Zlaczenia wewnetrzne dwoch tabel
 --17.1 Wyszukaj samochody, ktory nie zostaly zwrocone. (Data oddania samochodu ma miec wartosc NULL.) Wyswietl 
 --     identyfikator, marke i typ samochodu oraz jego date wypozyczenia i oddania.

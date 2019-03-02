@@ -1,3 +1,5 @@
+--18560 Mateusz Boczarski
+
 --28   Tworzenie tabel (CREATE TABLE)
 --28.1 Utworz tabele pracownik2(id_pracownik, imie, nazwisko, pesel, data_zatr, pensja), gdzie
 --     * id_pracownik - jest numerem pracownika nadawanym automatycznie, jest to klucz glowny 

@@ -1,3 +1,5 @@
+--18560 Mateusz Boczarski
+
 --1   Projekcja wynikow zapytan (SELECT ... FROM ...)
 --1.1 Wyswietlic zawartosc wszystkich kolumn z tabeli pracownik.
 SELECT * FROM pracownik;

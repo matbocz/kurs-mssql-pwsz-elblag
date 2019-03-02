@@ -1,3 +1,5 @@
+--18560 Mateusz Boczarski
+
 --32   Tworzenie procedur skladowych (CREATE PROCEDURE)
 --32.1 Napisac procedure o nazwie wypisz_samochody, ktora posiada tylko jeden parametr - marka samochodu. 
 --     Procedura powinna wyswietlac wszystkie informacje z tabeli samochod o samochodach zadanej marki.

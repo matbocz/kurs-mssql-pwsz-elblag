@@ -1,3 +1,5 @@
+--18560 Mateusz Boczarski
+
 --1 Dla kazdej miejscowosci (tabela adres) oblicz ilu klientow z niej pochodzi. Uwzglednij wszystkie miejscowosci.
 --  Wynik posortuj malejaco po obliczonej ilosci, a w przypadku takiej samej ilosci rosnaco po nazwie miejscowosci.
 SELECT a.miejscowosc, COUNT(k.id_adres) AS ilosc_klientow
