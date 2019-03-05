@@ -34,3 +34,80 @@ GO
 --Wyswietlenie calej zawartosci tabeli pracownik.
 SELECT * FROM pracownik;
 GO
+
+--Dodawanie rekordow.
+
+--Zadanie 1
+--Nalezy uniemozliwic dodanie rekordu z niepoprawnym numerem pesel,
+--napisz funkcje pomocnicza, wyswietl odpowiedni komunikat bledu.
+
+--Usuniecie funkcji pomocniczej, jesli istnieje.
+DROP FUNCTION IF EXISTS spr_pesel;
+GO
+
+--Utworzenie funkcji pomocniczej.
+CREATE FUNCTION spr_pesel(@pesel CHAR(11))
+RETURNS BIT AS
+BEGIN
+	IF(LEN(@pesel) != 11) OR (ISNUMERIC(@pesel) = 0)
+		RETURN 0
+	DECLARE @wagi AS TABLE (pozycja TINYINT IDENTITY(1, 1), waga TINYINT)
+	INSERT INTO @wagi VALUES (1), (3), (7), (9), (1), (3), (7), (9), (1), (3), (1)
+	IF(SELECT SUM(CONVERT(TINYINT, SUBSTRING(@pesel, pozycja, 1)) * waga) % 10 FROM @wagi) = 0
+		RETURN 1
+	RETURN 0
+END
+GO
+
+--Usuniecie wyzwalacza, jesli istnieje.
+DROP TRIGGER IF EXISTS poprawny_pesel;
+GO
+
+--Utworzenie wyzwalacza.
+CREATE TRIGGER poprawny_pesel ON pracownik
+AFTER INSERT AS
+BEGIN
+	DECLARE kursor_poprawny_pesel CURSOR FOR SELECT pesel FROM INSERTED
+	DECLARE @pesel CHAR(11)
+
+	OPEN kursor_poprawny_pesel
+	FETCH NEXT FROM kursor_poprawny_pesel INTO @pesel
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF dbo.spr_pesel(@pesel) = 0
+		BEGIN
+			RAISERROR('Nieprawidlowy numer pesel!', 1, 2)
+			ROLLBACK
+		END
+		FETCH NEXT FROM kursor_poprawny_pesel INTO @pesel
+	END
+
+	CLOSE kursor_poprawny_pesel
+	DEALLOCATE kursor_poprawny_pesel
+END;
+GO
+
+--TEST, dwa poprawne pesele.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Jan', 'Kowalski', '90080517455', '1990-08-05', 3000, 300),
+('Mariusz', 'Mysz', '81100216357', '1981-10-02', 5000, 500);
+GO
+
+--Test, dwa niepoprawne pesele.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Jan', 'Kowalski', '90080519999', '1990-08-05', 3000, 300),
+('Mariusz', 'Mysz', '81100219999', '1981-10-02', 5000, 500);
+GO
+
+--Test, jeden poprawny i jeden niepoprawny pesel.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Patrycja', 'Pilka', '92071314764', '1992-07-13', 2000, 200),
+('Kornelia', 'Kora', '80072909999', '1980-07-29', 4000, 400);
+GO
+
+--Test, jeden niepoprawny i jeden poprawny pesel.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Kornelia', 'Kora', '80072909999', '1980-07-29', 4000, 400),
+('Patrycja', 'Pilka', '92071314764', '1992-07-13', 2000, 200);
+GO
