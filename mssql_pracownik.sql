@@ -111,3 +111,7 @@ INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
 ('Kornelia', 'Kora', '80072909999', '1980-07-29', 4000, 400),
 ('Patrycja', 'Pilka', '92071314764', '1992-07-13', 2000, 200);
 GO
+
+--Wyswietlenie calej zawartosci tabeli pracownik.
+SELECT * FROM pracownik;
+GO
