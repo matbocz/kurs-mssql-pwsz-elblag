@@ -115,3 +115,42 @@ GO
 --Wyswietlenie calej zawartosci tabeli pracownik.
 SELECT * FROM pracownik;
 GO
+
+--Zadanie 2
+--W dodawanym rekordzie nalezy poprawic imie tak, aby zawsze sie zaczynało z wielkiej litery,
+--a pozostale litery byly male.
+
+--Usuniecie wyzwalacza, jesli istnieje.
+DROP TRIGGER IF EXISTS imie_wielka;
+GO
+
+--Utworzenie wyzwalacza.
+CREATE TRIGGER imie_wielka ON pracownik
+AFTER INSERT AS
+BEGIN
+	DECLARE imie_wielka_kursor CURSOR FOR SELECT id FROM pracownik
+	DECLARE @id INTEGER
+
+	OPEN imie_wielka_kursor
+	FETCH NEXT FROM imie_wielka_kursor INTO @id
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		UPDATE pracownik SET imie = UPPER(LEFT(imie, 1)) + LOWER(SUBSTRING(imie, 2, LEN(imie))) WHERE id = @id
+		FETCH NEXT FROM imie_wielka_kursor INTO @id
+	END
+
+	CLOSE imie_wielka_kursor
+	DEALLOCATE imie_wielka_kursor
+END;
+GO
+
+--Test, dwa niepoprawne imiona.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('paWel', 'Kowal', '85010174413', '1985-01-01', 3200, 100),
+('kAROL', 'Plotek', '85010186715', '1985-01-01', 4500, 250);
+GO
+
+--Wyswietlenie calej zawartosci tabeli pracownik.
+SELECT * FROM pracownik;
+GO
