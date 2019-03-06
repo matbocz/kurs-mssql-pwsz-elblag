@@ -96,20 +96,20 @@ GO
 
 --Test, dwa niepoprawne pesele.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('Jan', 'Kowalski', '90080519999', '1990-08-05', 8000, 300),
-('Mariusz', 'Mysz', '81100219999', '1981-10-02', 7000, 500);
+('Jacek', 'Strus', '99080749999', '1999-08-07', 5300, 200),
+('Mateusz', 'Mrok', '83011539999', '1983-01-15', 8600, 100);
 GO
 
 --Test, jeden poprawny i jeden niepoprawny pesel.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('Patrycja', 'Pilka', '92071314764', '1992-07-13', 9000, 200),
-('Kornelia', 'Kora', '80072909999', '1980-07-29', 8000, 400);
+('Patrycja', 'Pilka', '92071314764', '1992-07-13', 9500, 200),
+('Kornelia', 'Kora', '80072909999', '1980-07-29', 6200, 400);
 GO
 
 --Test, jeden niepoprawny i jeden poprawny pesel.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('Kornelia', 'Kora', '80072909999', '1980-07-29', 8000, 400),
-('Patrycja', 'Pilka', '92071314764', '1992-07-13', 9000, 200);
+('Magda', 'Mruczek', '46110219999', '1946-11-02', 5200, 200),
+('Paulina', 'Kruczek', '64120988286', '1964-12-09', 9100, 40000);
 GO
 
 --Wyswietlenie calej zawartosci tabeli pracownik.
