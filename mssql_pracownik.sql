@@ -15,7 +15,7 @@ CREATE TABLE pracownik (
 	nazwisko VARCHAR(40) NOT NULL CHECK(LEN(nazwisko) > 2),
 	pesel CHAR(11) NOT NULL UNIQUE CHECK(LEN(pesel) = 11),
 	data_ur DATE NOT NULL,
-	pensja DECIMAL(10, 2) DEFAULT 2500,
+	pensja DECIMAL(10, 2) DEFAULT 5500,
 	premia DECIMAL(10, 2) DEFAULT 0
 );
 GO
