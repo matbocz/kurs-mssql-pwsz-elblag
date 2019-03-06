@@ -206,3 +206,53 @@ GO
 --Wyswietlenie calej zawartosci tabeli pracownik.
 SELECT * FROM pracownik;
 GO
+
+--**************************************************************************************************************************
+--Zadanie 4
+--Dodawana pensja nie moze byc mniejsza niz 5000 zl, w przeciwnym wypadku wyswietl odpowiedni komunikat bledu.
+--**************************************************************************************************************************
+
+--Usuniecie wyzwalacza, jesli istnieje.
+DROP TRIGGER IF EXISTS minimalna_pensja;
+GO
+
+--Utworzenie wyzwalacza.
+CREATE TRIGGER minimalna_pensja ON pracownik
+AFTER INSERT AS
+BEGIN
+	DECLARE minimalna_pensja_kursor CURSOR FOR SELECT pensja FROM inserted
+	DECLARE @pensja DECIMAL(10, 2)
+
+	OPEN minimalna_pensja_kursor
+	FETCH NEXT FROM minimalna_pensja_kursor INTO @pensja
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF @pensja < 5000
+		BEGIN
+			RAISERROR('Pensja jest nizsza niz 5000zl!', 1, 2)
+			ROLLBACK
+		END
+		FETCH NEXT FROM minimalna_pensja_kursor INTO @pensja
+	END
+
+	CLOSE minimalna_pensja_kursor
+	DEALLOCATE minimalna_pensja_kursor
+END;
+GO
+
+--Test, dwie pensje powyzej 5000zl.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Mikolaj', 'Stol', '70011079515', '1970-01-10', 5400, 400),
+('Franciszek', 'Kropka', '77010762910', '1977-01-07', 6500, 100);
+GO
+
+--Test, dwie pensje ponizej 5000zl.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Bogdan', 'Zalewski', '88040407410', '1988-04-04', 2000, 300),
+('Marek', 'Krowa', '87050503516', '1987-05-05', 1500, 400);
+GO
+
+--Wyswietlenie calej zawartosci tabeli pracownik.
+SELECT * FROM pracownik;
+GO
