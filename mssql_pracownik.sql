@@ -20,10 +20,6 @@ CREATE TABLE pracownik (
 );
 GO
 
---Usuniecie calej zawartosci z tabeli pracownik.
-DELETE FROM pracownik;
-GO
-
 --Wstawienie rekordow do tabeli pracownik.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES('Jan', 'Kowalski', '90010196632', '1990-01-01', 9000, 300);
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja) VALUES('Marek', 'Nowak', '89021005678', '1989-02-10', 7000);
@@ -35,11 +31,15 @@ GO
 SELECT * FROM pracownik;
 GO
 
+--**************************************************************************************************************************
 --Dodawanie rekordow.
+--**************************************************************************************************************************
 
+--**************************************************************************************************************************
 --Zadanie 1
 --Nalezy uniemozliwic dodanie rekordu z niepoprawnym numerem pesel,
 --napisz funkcje pomocnicza, wyswietl odpowiedni komunikat bledu.
+--**************************************************************************************************************************
 
 --Usuniecie funkcji pomocniczej, jesli istnieje.
 DROP FUNCTION IF EXISTS spr_pesel;
@@ -116,9 +116,11 @@ GO
 SELECT * FROM pracownik;
 GO
 
+--**************************************************************************************************************************
 --Zadanie 2
 --W dodawanym rekordzie nalezy poprawic imie tak, aby zawsze sie zaczynało z wielkiej litery,
 --a pozostale litery byly male.
+--**************************************************************************************************************************
 
 --Usuniecie wyzwalacza, jesli istnieje.
 DROP TRIGGER IF EXISTS imie_wielka;
