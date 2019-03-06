@@ -25,8 +25,8 @@ DELETE FROM pracownik;
 GO
 
 --Wstawienie rekordow do tabeli pracownik.
-INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES('Jan', 'Kowalski', '90010196632', '1990-01-01', 3000, 300);
-INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja) VALUES('Marek', 'Nowak', '89021005678', '1989-02-10', 4000);
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES('Jan', 'Kowalski', '90010196632', '1990-01-01', 9000, 300);
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja) VALUES('Marek', 'Nowak', '89021005678', '1989-02-10', 7000);
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, premia) VALUES('Damian', 'Kroll', '85051205472', '1985-05-12', 400);
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur) VALUES('Justyna', 'Noga', '91080403221', '1991-08-04');
 GO
@@ -90,26 +90,26 @@ GO
 
 --TEST, dwa poprawne pesele.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('Jan', 'Kowalski', '90080517455', '1990-08-05', 3000, 300),
-('Mariusz', 'Mysz', '81100216357', '1981-10-02', 5000, 500);
+('Jan', 'Kowalski', '90080517455', '1990-08-05', 8000, 300),
+('Mariusz', 'Mysz', '81100216357', '1981-10-02', 7000, 500);
 GO
 
 --Test, dwa niepoprawne pesele.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('Jan', 'Kowalski', '90080519999', '1990-08-05', 3000, 300),
-('Mariusz', 'Mysz', '81100219999', '1981-10-02', 5000, 500);
+('Jan', 'Kowalski', '90080519999', '1990-08-05', 8000, 300),
+('Mariusz', 'Mysz', '81100219999', '1981-10-02', 7000, 500);
 GO
 
 --Test, jeden poprawny i jeden niepoprawny pesel.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('Patrycja', 'Pilka', '92071314764', '1992-07-13', 2000, 200),
-('Kornelia', 'Kora', '80072909999', '1980-07-29', 4000, 400);
+('Patrycja', 'Pilka', '92071314764', '1992-07-13', 9000, 200),
+('Kornelia', 'Kora', '80072909999', '1980-07-29', 8000, 400);
 GO
 
 --Test, jeden niepoprawny i jeden poprawny pesel.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('Kornelia', 'Kora', '80072909999', '1980-07-29', 4000, 400),
-('Patrycja', 'Pilka', '92071314764', '1992-07-13', 2000, 200);
+('Kornelia', 'Kora', '80072909999', '1980-07-29', 8000, 400),
+('Patrycja', 'Pilka', '92071314764', '1992-07-13', 9000, 200);
 GO
 
 --Wyswietlenie calej zawartosci tabeli pracownik.
@@ -147,8 +147,8 @@ GO
 
 --Test, dwa niepoprawne imiona.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
-('paWel', 'Kowal', '85010174413', '1985-01-01', 3200, 100),
-('kAROL', 'Plotek', '85010186715', '1985-01-01', 4500, 250);
+('paWel', 'Kowal', '85010174413', '1985-01-01', 8200, 100),
+('kAROL', 'Plotek', '85010186715', '1985-01-01', 6500, 250);
 GO
 
 --Wyswietlenie calej zawartosci tabeli pracownik.
