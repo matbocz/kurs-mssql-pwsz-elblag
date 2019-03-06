@@ -67,7 +67,7 @@ GO
 CREATE TRIGGER poprawny_pesel ON pracownik
 AFTER INSERT AS
 BEGIN
-	DECLARE kursor_poprawny_pesel CURSOR FOR SELECT pesel FROM INSERTED
+	DECLARE kursor_poprawny_pesel CURSOR FOR SELECT pesel FROM inserted
 	DECLARE @pesel CHAR(11)
 
 	OPEN kursor_poprawny_pesel
@@ -130,7 +130,7 @@ GO
 CREATE TRIGGER imie_wielka ON pracownik
 AFTER INSERT AS
 BEGIN
-	DECLARE imie_wielka_kursor CURSOR FOR SELECT id FROM pracownik
+	DECLARE imie_wielka_kursor CURSOR FOR SELECT id FROM inserted
 	DECLARE @id INTEGER
 
 	OPEN imie_wielka_kursor
@@ -170,7 +170,7 @@ GO
 CREATE TRIGGER pelnoletni ON pracownik
 AFTER INSERT AS
 BEGIN
-	DECLARE pelnoletni_kursor CURSOR FOR SELECT data_ur FROM INSERTED
+	DECLARE pelnoletni_kursor CURSOR FOR SELECT data_ur FROM inserted
 	DECLARE @data_ur DATE
 
 	OPEN pelnoletni_kursor
