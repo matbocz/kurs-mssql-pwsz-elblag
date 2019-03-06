@@ -156,3 +156,53 @@ GO
 --Wyswietlenie calej zawartosci tabeli pracownik.
 SELECT * FROM pracownik;
 GO
+
+--**************************************************************************************************************************
+--Zadanie 3
+--Dodawany pracownik powinien byc pelnoletni, w przeciwnym przypadku wyswietl odpowiedni komunikat bledu.
+--**************************************************************************************************************************
+
+--Usuniecie wyzwalacza, jesli istnieje.
+DROP TRIGGER IF EXISTS pelnoletni;
+GO
+
+--Utworzenie wyzwalacza.
+CREATE TRIGGER pelnoletni ON pracownik
+AFTER INSERT AS
+BEGIN
+	DECLARE pelnoletni_kursor CURSOR FOR SELECT data_ur FROM INSERTED
+	DECLARE @data_ur DATE
+
+	OPEN pelnoletni_kursor
+	FETCH NEXT FROM pelnoletni_kursor INTO @data_ur
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF DATEDIFF(year, @data_ur, GETDATE()) < 18
+		BEGIN
+			RAISERROR('Pracownik jest niepelnoletni!', 1, 2)
+			ROLLBACK
+		END
+		FETCH NEXT FROM pelnoletni_kursor INTO @data_ur
+	END
+
+	CLOSE pelnoletni_kursor
+	DEALLOCATE pelnoletni_kursor
+END;
+GO
+
+--Test, dwie osoby pelnoletnie.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Krzysztof', 'Mrowka', '90090277613', '1990-09-02', 6000, 200),
+('Andrzej', 'Baran', '90022022818', '1990-02-20', 7000, 400);
+GO
+
+--Test, dwie osoby niepelnoletnie.
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
+('Rafal', 'Banka', '05231003518', '2005-03-10', 1400, 200),
+('Wojciech', 'Malpa', '10250507316', '2010-05-05', 3000, 350);
+GO
+
+--Wyswietlenie calej zawartosci tabeli pracownik.
+SELECT * FROM pracownik;
+GO
