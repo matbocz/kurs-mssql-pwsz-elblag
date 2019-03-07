@@ -264,3 +264,31 @@ GO
 --Wyswietlenie calej zawartosci tabeli pracownik.
 SELECT * FROM pracownik;
 GO
+
+--**************************************************************************************************************************
+--Usuwanie i modyfikowanie rekordow.
+--**************************************************************************************************************************
+
+--**************************************************************************************************************************
+--Zadanie 1
+--Na podstawie tabeli pracownik utworz tabele pracownik_historia(id, imie, nazwisko, pesel, data_ur, pensja, premia, operacja, data),
+--gdzie atrybut operacja bedzie przyjmowal wartosci D lub U (D od Delete, U od Update), a atrybut data to data dokonania operacji.
+--**************************************************************************************************************************
+
+--Usuniecie tabeli pracownik_historia, jesli istnieje.
+DROP TABLE IF EXISTS pracownik_historia;
+GO
+
+--Utworzenie tabeli pracownik_historia.
+CREATE TABLE pracownik_historia (
+	id INTEGER IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	imie VARCHAR(20) NOT NULL CHECK(LEN(imie) > 2),
+	nazwisko VARCHAR(40) NOT NULL CHECK(LEN(nazwisko) > 2),
+	pesel CHAR(11) NOT NULL UNIQUE CHECK(LEN(pesel) = 11),
+	data_ur DATE NOT NULL,
+	pensja DECIMAL(10, 2) DEFAULT 5500,
+	premia DECIMAL(10, 2) DEFAULT 0,
+	operacja CHAR(1) NOT NULL,
+	data_op DATE NOT NULL
+);
+GO
