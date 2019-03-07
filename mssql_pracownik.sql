@@ -96,7 +96,7 @@ BEGIN
 END;
 GO
 
---TEST, dwa poprawne pesele.
+--Test, dwa poprawne pesele.
 INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES
 ('Jan', 'Kowalski', '90080517455', '1990-08-05', 8000, 300),
 ('Mariusz', 'Mysz', '81100216357', '1981-10-02', 7000, 500);
