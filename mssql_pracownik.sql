@@ -29,10 +29,10 @@ CREATE TABLE pracownik (
 GO
 
 --Wstawienie rekordow do tabeli pracownik.
-INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES('Jan', 'Kowalski', '90010196632', '1990-01-01', 9000, 300);
-INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja) VALUES('Marek', 'Nowak', '89021005678', '1989-02-10', 7000);
-INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, premia) VALUES('Damian', 'Kroll', '85051205472', '1985-05-12', 400);
-INSERT INTO pracownik(imie, nazwisko, pesel, data_ur) VALUES('Justyna', 'Noga', '91080403221', '1991-08-04');
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja, premia) VALUES('Jan', 'Kowalski', '87111978112', '1987-11-19', 9000, 300);
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, pensja) VALUES('Marek', 'Nowak', '78070881731', '1978-07-08', 7000);
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur, premia) VALUES('Damian', 'Kroll', '55112484114', '1955-11-24', 400);
+INSERT INTO pracownik(imie, nazwisko, pesel, data_ur) VALUES('Justyna', 'Noga', '96122837664', '1996-12-28');
 GO
 
 --Wyswietlenie calej zawartosci tabeli pracownik.
@@ -75,11 +75,11 @@ GO
 CREATE TRIGGER poprawny_pesel ON pracownik
 AFTER INSERT AS
 BEGIN
-	DECLARE kursor_poprawny_pesel CURSOR FOR SELECT pesel FROM inserted
+	DECLARE poprawny_pesel_kursor CURSOR FOR SELECT pesel FROM inserted
 	DECLARE @pesel CHAR(11)
 
-	OPEN kursor_poprawny_pesel
-	FETCH NEXT FROM kursor_poprawny_pesel INTO @pesel
+	OPEN poprawny_pesel_kursor
+	FETCH NEXT FROM poprawny_pesel_kursor INTO @pesel
 
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
@@ -88,11 +88,11 @@ BEGIN
 			RAISERROR('Nieprawidlowy numer pesel!', 1, 2)
 			ROLLBACK
 		END
-		FETCH NEXT FROM kursor_poprawny_pesel INTO @pesel
+		FETCH NEXT FROM poprawny_pesel_kursor INTO @pesel
 	END
 
-	CLOSE kursor_poprawny_pesel
-	DEALLOCATE kursor_poprawny_pesel
+	CLOSE poprawny_pesel_kursor
+	DEALLOCATE poprawny_pesel_kursor
 END;
 GO
 
