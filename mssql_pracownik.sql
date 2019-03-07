@@ -4,6 +4,14 @@
 SET DATEFORMAT ymd;
 GO
 
+--**************************************************************************************************************************
+--W pewnej bazie danych, w pewnym systemie zarzadzania baza danych SQL Server istnieje tabela pracownik(id, imie, nazwisko, pesel, data_ur, pensja, premia).
+--dobierz typy atrybutow,
+--dobierz ograniczenia dla atrybutow (postaraj sie!),
+--nie zapomnij o autoinkrementacji :),
+--napisz instrukcje SQL, ktora utworzy powyzszą tabele z dobranymi wczesniej ograniczeniami.
+--**************************************************************************************************************************
+
 --Usuniecie tabeli pracownik, jesli istnieje.
 DROP TABLE IF EXISTS pracownik;
 GO
