@@ -51,6 +51,24 @@ INSERT INTO towar(nazwa, opis, ilosc_sztuk, cena_netto, podatek) VALUES
 ('Creative 2.0 A60', 'Zestaw glosnikowy 2.0 do uniwersalnych zastosowan audio zwiazanych z rozrywka.', 8, 59.00, 0.22);
 GO
 
+--Usuniecie tabeli zakup, jesli istnieje.
+DROP TABLE IF EXISTS zakup;
+GO
+
+--Utworzenie tabeli zakup.
+CREATE TABLE zakup (
+	id INTEGER IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	klient_id INTEGER NOT NULL FOREIGN KEY REFERENCES klient(id),
+	data_zakupu DATE NOT NULL
+);
+GO
+
+--Wstawienie rekordow do tabeli zakup.
+INSERT INTO zakup(klient_id, data_zakupu) VALUES
+(1, '2010-03-03'), (1, '2011-04-20'), (2, '2012-01-10'), (2, '2018-08-01'),
+(3, '2014-05-22'), (3, '2016-09-10'), (3, '2019-01-28'), (4, '2015-12-17');
+GO
+
 --Zadanie 2
 --Oprogramuj powyzsza baze danych tak, aby podczas sprzedazy towaru ilosc dostepnych sztuk sprzedawanego towaru byla uaktualniana automatycznie
 --(czyli zmniejszana o ilosc zakupionych sztuk danego towaru przez klienta),
