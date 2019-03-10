@@ -337,3 +337,48 @@ GO
 --Wyswietlenie calej zawartosci tabeli pracownik_historia.
 SELECT * FROM pracownik_historia;
 GO
+
+--**************************************************************************************************************************
+--Zadanie 3
+--Po zmodyfikowaniu rekordu w tabeli pracownik zrob kopie poprzedniej wartosci rekordu w tabeli pracownik_historia 
+--(uwzglednij przypadek, ze moze byc modyfikowanych kilka rekordow rownoczesnie).
+--**************************************************************************************************************************
+
+--Usuniecie wyzwalacza, jesli istnieje.
+DROP TRIGGER IF EXISTS kopia_update;
+GO
+
+--Utworzenie wyzwalacza.
+CREATE TRIGGER kopia_update ON pracownik
+AFTER UPDATE AS
+BEGIN
+	DECLARE kopia_update_kursor CURSOR FOR SELECT imie, nazwisko, pesel, data_ur, pensja, premia FROM inserted
+	DECLARE @imie VARCHAR(20), @nazwisko VARCHAR(40), @pesel CHAR(11),
+	        @data_ur DATE, @pensja DECIMAL(10, 2), @premia DECIMAL(10, 2)
+
+	OPEN kopia_update_kursor
+	FETCH NEXT FROM kopia_update_kursor INTO @imie, @nazwisko, @pesel, @data_ur, @pensja, @premia
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		INSERT INTO pracownik_historia(imie, nazwisko, pesel, data_ur, pensja, premia, operacja, data_op) VALUES
+		(@imie, @nazwisko, @pesel, @data_ur, @pensja, @premia, 'U', GETDATE())
+		FETCH NEXT FROM kopia_update_kursor INTO @imie, @nazwisko, @pesel, @data_ur, @pensja, @premia 
+	END
+
+	CLOSE kopia_update_kursor
+	DEALLOCATE kopia_update_kursor
+END;
+GO
+
+--Test, zmodyfikowanie danych dwoch pracownikow.
+UPDATE pracownik SET premia = 800 WHERE id IN (2, 4)
+GO
+
+--Wyswietlenie calej zawartosci tabeli pracownik.
+SELECT * FROM pracownik;
+GO
+
+--Wyswietlenie calej zawartosci tabeli pracownik_historia.
+SELECT * FROM pracownik_historia;
+GO
