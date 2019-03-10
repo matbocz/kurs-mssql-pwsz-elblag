@@ -1,3 +1,9 @@
+--18560 Mateusz Boczarski
+
+--Ustawienie formatu daty.
+SET DATEFORMAT ymd;
+GO
+
 --Zadanie 1
 --Dane sa tabele: klient(id, imie, nazwisko), towar(id, nazwa, opis, ilosc_sztuk, cena_netto, podatek),
 --zakup(id, klient_id, data_zakupu), koszyk(zakup_id, towar_id, ilosc, cena_netto, podatek).
