@@ -27,6 +27,30 @@ INSERT INTO klient(imie, nazwisko) VALUES
 ('Maciej', 'Mrowka'), ('Rafal', 'Biurko'), 
 ('Magda', 'Stol'), ('Paulina', 'Wieczorek');
 GO
+
+--Usuniecie tabeli towar, jesli istnieje.
+DROP TABLE IF EXISTS towar;
+GO
+
+--Utworzenie tabeli towar.
+CREATE TABLE towar (
+	id INTEGER IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	nazwa VARCHAR(40) NOT NULL CHECK(LEN(nazwa) > 2),
+	opis VARCHAR(200) NOT NULL CHECK(LEN(opis) > 10),
+	ilosc_sztuk INTEGER DEFAULT 0 CHECK(ilosc_sztuk >= 0),
+	cena_netto DECIMAL(10, 2) NOT NULL CHECK(cena_netto >= 0),
+	podatek DECIMAL(10, 2) NOT NULL CHECK(podatek >= 0)
+);
+GO
+
+--Wstawienie rekordow do tabeli towar.
+INSERT INTO towar(nazwa, opis, ilosc_sztuk, cena_netto, podatek) VALUES
+('Logitech M185', 'Logitech M185 to mysz, ktora oferuje niezawodna lacznosc bezprzewodowa 2.4 GHz.', 10, 59.99, 0.22),
+('HP K2500', 'Klawiatura HP K2500 zawiera pelna klawiature numeryczna oraz dedykowane klawisze skrotow.', 21, 99.00, 0.22),
+('Kingston 16GB DataTraveler', 'Pamiec Flash USB Kingston DataTraveler czwartej generacji.', 44, 23.00, 0.22),
+('Creative 2.0 A60', 'Zestaw glosnikowy 2.0 do uniwersalnych zastosowan audio zwiazanych z rozrywka.', 8, 59.00, 0.22);
+GO
+
 --Zadanie 2
 --Oprogramuj powyzsza baze danych tak, aby podczas sprzedazy towaru ilosc dostepnych sztuk sprzedawanego towaru byla uaktualniana automatycznie
 --(czyli zmniejszana o ilosc zakupionych sztuk danego towaru przez klienta),
