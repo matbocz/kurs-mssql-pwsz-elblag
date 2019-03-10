@@ -10,6 +10,23 @@ GO
 --Dobierz odpowiednio typy danych, ograniczenia, klucze glowne i obce (pamietaj tez o autoinkrementacji),
 --dodaj kilka przykladowych rekordow do kazdej tabeli.
 
+--Usuniecie tabeli klient, jesli istnieje.
+DROP TABLE IF EXISTS klient;
+GO
+
+--Utworzenie tabeli klient.
+CREATE TABLE klient (
+	id INTEGER IDENTITY(1, 1) NOT NULL PRIMARY KEY,
+	imie VARCHAR(20) NOT NULL CHECK(LEN(imie) > 2),
+	nazwisko VARCHAR(40) NOT NULL CHECK(LEN(nazwisko) > 2)
+);
+GO
+
+--Wstawienie rekordow do tabeli klient.
+INSERT INTO klient(imie, nazwisko) VALUES
+('Maciej', 'Mrowka'), ('Rafal', 'Biurko'), 
+('Magda', 'Stol'), ('Paulina', 'Wieczorek');
+GO
 --Zadanie 2
 --Oprogramuj powyzsza baze danych tak, aby podczas sprzedazy towaru ilosc dostepnych sztuk sprzedawanego towaru byla uaktualniana automatycznie
 --(czyli zmniejszana o ilosc zakupionych sztuk danego towaru przez klienta),
