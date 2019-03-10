@@ -28,6 +28,10 @@ INSERT INTO klient(imie, nazwisko) VALUES
 ('Magda', 'Stol'), ('Paulina', 'Wieczorek');
 GO
 
+--Wyswietlenie tabeli klient.
+SELECT * FROM klient;
+GO
+
 --Usuniecie tabeli towar, jesli istnieje.
 DROP TABLE IF EXISTS towar;
 GO
@@ -51,6 +55,10 @@ INSERT INTO towar(nazwa, opis, ilosc_sztuk, cena_netto, podatek) VALUES
 ('Creative 2.0 A60', 'Zestaw glosnikowy 2.0 do uniwersalnych zastosowan audio zwiazanych z rozrywka.', 8, 59.00, 0.22);
 GO
 
+--Wyswietlenie tabeli towar.
+SELECT * FROM towar;
+GO
+
 --Usuniecie tabeli zakup, jesli istnieje.
 DROP TABLE IF EXISTS zakup;
 GO
@@ -67,6 +75,10 @@ GO
 INSERT INTO zakup(klient_id, data_zakupu) VALUES
 (1, '2010-03-03'), (1, '2011-04-20'), (2, '2012-01-10'), (2, '2018-08-01'),
 (3, '2014-05-22'), (3, '2016-09-10'), (3, '2019-01-28'), (4, '2015-12-17');
+GO
+
+--Wyswietlenie tabeli zakup.
+SELECT * FROM zakup;
 GO
 
 --Zadanie 2
