@@ -81,6 +81,31 @@ GO
 SELECT * FROM zakup;
 GO
 
+--Usuniecie tabeli koszyk, jesli istnieje.
+DROP TABLE IF EXISTS koszyk;
+GO
+
+--Utworzenie tabeli koszyk.
+CREATE TABLE koszyk (
+	zakup_id INTEGER NOT NULL FOREIGN KEY REFERENCES zakup(id),
+	towar_id INTEGER NOT NULL FOREIGN KEY REFERENCES towar(id),
+	ilosc INTEGER NOT NULL CHECK(ilosc > 0),
+	cena_netto DECIMAL(10, 2) NOT NULL CHECK(cena_netto >= 0),
+	podatek DECIMAL(10, 2) NOT NULL CHECK(podatek >= 0),
+	PRIMARY KEY(zakup_id, towar_id)
+);
+GO
+
+--Wstawienie rekordow do tabeli koszyk.
+INSERT INTO koszyk(zakup_id, towar_id, ilosc, cena_netto, podatek) VALUES
+(1, 3, 1, 23.00, 0.22), (2, 3, 3, 23.00, 0.22), (3, 1, 1, 59.99, 0.22), (4, 2, 1, 99.00, 0.22),
+(5, 3, 2, 23.00, 0.22), (6, 2, 5, 99.00, 0.22), (7, 3, 1, 23.00, 0.22), (8, 4, 2, 59.00, 0.22);
+GO
+
+--Wyswietlenie tabeli zakup.
+SELECT * FROM koszyk;
+GO
+
 --Zadanie 2
 --Oprogramuj powyzsza baze danych tak, aby podczas sprzedazy towaru ilosc dostepnych sztuk sprzedawanego towaru byla uaktualniana automatycznie
 --(czyli zmniejszana o ilosc zakupionych sztuk danego towaru przez klienta),
