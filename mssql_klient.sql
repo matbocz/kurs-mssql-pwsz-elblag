@@ -4,11 +4,13 @@
 SET DATEFORMAT ymd;
 GO
 
+--=================================================================================================================================================
 --Zadanie 1
 --Dane sa tabele: klient(id, imie, nazwisko), towar(id, nazwa, opis, ilosc_sztuk, cena_netto, podatek),
 --zakup(id, klient_id, data_zakupu), koszyk(zakup_id, towar_id, ilosc, cena_netto, podatek).
 --Dobierz odpowiednio typy danych, ograniczenia, klucze glowne i obce (pamietaj tez o autoinkrementacji),
 --dodaj kilka przykladowych rekordow do kazdej tabeli.
+--=================================================================================================================================================
 
 --Usuniecie tabeli klient, jesli istnieje.
 DROP TABLE IF EXISTS klient;
@@ -28,9 +30,11 @@ INSERT INTO klient(imie, nazwisko) VALUES
 ('Magda', 'Stol'), ('Paulina', 'Wieczorek');
 GO
 
---Wyswietlenie tabeli klient.
+--Wyswietlenie zawartosci tabeli klient.
 SELECT * FROM klient;
 GO
+
+--*************************************************************************************
 
 --Usuniecie tabeli towar, jesli istnieje.
 DROP TABLE IF EXISTS towar;
@@ -55,9 +59,11 @@ INSERT INTO towar(nazwa, opis, ilosc_sztuk, cena_netto, podatek) VALUES
 ('Creative 2.0 A60', 'Zestaw glosnikowy 2.0 do uniwersalnych zastosowan audio zwiazanych z rozrywka.', 8, 59.00, 0.22);
 GO
 
---Wyswietlenie tabeli towar.
+--Wyswietlenie zawartosci tabeli towar.
 SELECT * FROM towar;
 GO
+
+--*************************************************************************************
 
 --Usuniecie tabeli zakup, jesli istnieje.
 DROP TABLE IF EXISTS zakup;
@@ -77,9 +83,11 @@ INSERT INTO zakup(klient_id, data_zakupu) VALUES
 (3, '2014-05-22'), (3, '2016-09-10'), (3, '2019-01-28'), (4, '2015-12-17');
 GO
 
---Wyswietlenie tabeli zakup.
+--Wyswietlenie zawartosci tabeli zakup.
 SELECT * FROM zakup;
 GO
+
+--*************************************************************************************
 
 --Usuniecie tabeli koszyk, jesli istnieje.
 DROP TABLE IF EXISTS koszyk;
@@ -102,10 +110,11 @@ INSERT INTO koszyk(zakup_id, towar_id, ilosc, cena_netto, podatek) VALUES
 (5, 3, 2, 23.00, 0.22), (6, 2, 5, 99.00, 0.22), (7, 3, 1, 23.00, 0.22), (8, 4, 2, 59.00, 0.22);
 GO
 
---Wyswietlenie tabeli zakup.
+--Wyswietlenie zawartosci tabeli zakup.
 SELECT * FROM koszyk;
 GO
 
+--=================================================================================================================================================
 --Zadanie 2
 --Oprogramuj powyzsza baze danych tak, aby podczas sprzedazy towaru ilosc dostepnych sztuk sprzedawanego towaru byla uaktualniana automatycznie
 --(czyli zmniejszana o ilosc zakupionych sztuk danego towaru przez klienta),
