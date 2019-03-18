@@ -121,15 +121,20 @@ GO
 --uwzglednij przypadek, gdy chcemy sprzedac wieksza ilosc sztuk niz mamy rzeczywiscie dostepnych - wymysl jak mozna zareagowac na taka sytuacje
 --(prosze sie postawic w sytuacji sprzedawcy - odmowa sprzedazy jest niekorzystna dla sprzedawcy,
 --wiec prosze wymyslic inne rozwiazanie - dopuszczalna jest mozliwosc modyfikacji struktury bazy danych).
+--=================================================================================================================================================
 
+--=================================================================================================================================================
 --Zadanie 3
 --Utworz widok klient_statystyki(id,imie,nazwisko,ilosc_zakupow,suma_wydanej_kasy_brutto), gdzie id, imie, nazwisko to dane z tabeli klient,
 --a ilosc_zakupow, suma_wydanej_kasy_brutto to wyniki dzialania funkcji agregujacych zliczajacych odpowiednio ilosc dokonanych zakupow przez danego klienta
 --i laczna kwote brutto [czyli (1+podatek)*cena_netto] wydanych pieniedzy podczas tych zakupow.
+--=================================================================================================================================================
 
+--=================================================================================================================================================
 --Zadanie 4
 --Utworz wyzwalacze dzialajace na widoku klient_statystyki i reagujace na:
 --dodanie klienta - dane klienta maja byc dodane do tabeli klienci,
 --usuwanie klienta - klient ma byc usuwany z tabeli klient,
 --modyfikacje danych klienta - dane klienta maja byc zmodyfikowane w tabeli klient,
 --nalezy przewidziec przypadek, ze jest jednoczesnie wiele dodawanych, usuwanych i modyfikowanych danych.
+--=================================================================================================================================================
