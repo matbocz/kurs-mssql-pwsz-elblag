@@ -26,8 +26,8 @@ GO
 
 --Wstawienie rekordow do tabeli klient.
 INSERT INTO klient(imie, nazwisko) VALUES
-('Maciej', 'Mrowka'), ('Rafal', 'Biurko'), 
-('Magda', 'Stol'), ('Paulina', 'Wieczorek');
+	('Maciej', 'Mrowka'), ('Rafal', 'Biurko'), 
+	('Magda', 'Stol'), ('Paulina', 'Wieczorek');
 GO
 
 --Wyswietlenie zawartosci tabeli klient.
@@ -53,10 +53,10 @@ GO
 
 --Wstawienie rekordow do tabeli towar.
 INSERT INTO towar(nazwa, opis, ilosc_sztuk, cena_netto, podatek) VALUES
-('Logitech M185', 'Logitech M185 to mysz, ktora oferuje niezawodna lacznosc bezprzewodowa 2.4 GHz.', 10, 59.99, 0.22),
-('HP K2500', 'Klawiatura HP K2500 zawiera pelna klawiature numeryczna oraz dedykowane klawisze skrotow.', 21, 99.00, 0.22),
-('Kingston 16GB DataTraveler', 'Pamiec Flash USB Kingston DataTraveler czwartej generacji.', 44, 23.00, 0.22),
-('Creative 2.0 A60', 'Zestaw glosnikowy 2.0 do uniwersalnych zastosowan audio zwiazanych z rozrywka.', 8, 59.00, 0.22);
+	('Logitech M185', 'Logitech M185 to mysz, ktora oferuje niezawodna lacznosc bezprzewodowa 2.4 GHz.', 10, 59.99, 0.22),
+	('HP K2500', 'Klawiatura HP K2500 zawiera pelna klawiature numeryczna oraz dedykowane klawisze skrotow.', 21, 99.00, 0.22),
+	('Kingston 16GB DataTraveler', 'Pamiec Flash USB Kingston DataTraveler czwartej generacji.', 44, 23.00, 0.22),
+	('Creative 2.0 A60', 'Zestaw glosnikowy 2.0 do uniwersalnych zastosowan audio zwiazanych z rozrywka.', 8, 59.00, 0.22);
 GO
 
 --Wyswietlenie zawartosci tabeli towar.
@@ -72,15 +72,15 @@ GO
 --Utworzenie tabeli zakup.
 CREATE TABLE zakup (
 	id INTEGER IDENTITY(1, 1) NOT NULL PRIMARY KEY,
-	klient_id INTEGER NOT NULL FOREIGN KEY REFERENCES klient(id),
+	klient_id INTEGER NOT NULL FOREIGN KEY REFERENCES klient(id) ON DELETE CASCADE,
 	data_zakupu DATE NOT NULL
 );
 GO
 
 --Wstawienie rekordow do tabeli zakup.
 INSERT INTO zakup(klient_id, data_zakupu) VALUES
-(1, '2010-03-03'), (1, '2011-04-20'), (2, '2012-01-10'), (2, '2018-08-01'),
-(3, '2014-05-22'), (3, '2016-09-10'), (3, '2019-01-28'), (4, '2015-12-17');
+	(1, '2010-03-03'), (1, '2011-04-20'), (2, '2012-01-10'), (2, '2018-08-01'),
+	(3, '2014-05-22'), (3, '2016-09-10'), (3, '2019-01-28'), (4, '2015-12-17');
 GO
 
 --Wyswietlenie zawartosci tabeli zakup.
@@ -95,8 +95,8 @@ GO
 
 --Utworzenie tabeli koszyk.
 CREATE TABLE koszyk (
-	zakup_id INTEGER NOT NULL FOREIGN KEY REFERENCES zakup(id),
-	towar_id INTEGER NOT NULL FOREIGN KEY REFERENCES towar(id),
+	zakup_id INTEGER NOT NULL FOREIGN KEY REFERENCES zakup(id) ON DELETE CASCADE,
+	towar_id INTEGER NOT NULL FOREIGN KEY REFERENCES towar(id) ON DELETE CASCADE,
 	ilosc INTEGER NOT NULL CHECK(ilosc > 0),
 	cena_netto DECIMAL(10, 2) NOT NULL CHECK(cena_netto >= 0),
 	podatek DECIMAL(10, 2) NOT NULL CHECK(podatek >= 0),
@@ -106,8 +106,8 @@ GO
 
 --Wstawienie rekordow do tabeli koszyk.
 INSERT INTO koszyk(zakup_id, towar_id, ilosc, cena_netto, podatek) VALUES
-(1, 3, 1, 23.00, 0.22), (2, 3, 3, 23.00, 0.22), (3, 1, 1, 59.99, 0.22), (4, 2, 1, 99.00, 0.22),
-(5, 3, 2, 23.00, 0.22), (6, 2, 5, 99.00, 0.22), (7, 3, 1, 23.00, 0.22), (8, 4, 2, 59.00, 0.22);
+	(1, 3, 1, 23.00, 0.22), (2, 3, 3, 23.00, 0.22), (3, 1, 1, 59.99, 0.22), (4, 2, 1, 99.00, 0.22),
+	(5, 3, 2, 23.00, 0.22), (6, 2, 5, 99.00, 0.22), (7, 3, 1, 23.00, 0.22), (8, 4, 2, 59.00, 0.22);
 GO
 
 --Wyswietlenie zawartosci tabeli zakup.
