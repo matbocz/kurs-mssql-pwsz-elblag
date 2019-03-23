@@ -123,6 +123,63 @@ GO
 --wiec prosze wymyslic inne rozwiazanie - dopuszczalna jest mozliwosc modyfikacji struktury bazy danych).
 --=================================================================================================================================================
 
+--Dodanie kolumny ilosc_sztuk_brakujacych, do tabeli towar.
+ALTER TABLE towar ADD ilosc_sztuk_brakujacych INTEGER;
+GO
+
+--*************************************************************************************
+
+--Usuniecie wyzwalacza zakupione, jesli istnieje.
+DROP TRIGGER IF EXISTS zakupione;
+GO
+
+--Utworzenie wyzwalacza zakupione.
+CREATE TRIGGER zakupione ON koszyk
+AFTER INSERT AS
+BEGIN
+	DECLARE zakupione_kursor CURSOR FOR SELECT towar_id, ilosc FROM inserted
+	DECLARE @towar_id INTEGER, @ilosc INTEGER, @ile INTEGER
+
+	OPEN zakupione_kursor
+	FETCH NEXT FROM zakupione_kursor INTO @towar_id, @ilosc
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET @ile = (SELECT ilosc_sztuk FROM towar WHERE id = @towar_id)
+		SET @ile = @ile - @ilosc
+		IF @ile <= 0 
+		BEGIN
+			UPDATE towar SET ilosc_sztuk_brakujacych = 0 WHERE id = @towar_id
+			UPDATE towar SET ilosc_sztuk_brakujacych = ilosc_sztuk_brakujacych - @ile WHERE id = @towar_id
+			PRINT N'Aktualnie brak towaru takiej ilosci towaru w sklepie. Zamowimy brakujacy towar dla Ciebie i zrealizujemy zamowienie pozniej!'
+		END
+		IF @ile > 0
+		BEGIN
+			UPDATE towar SET ilosc_sztuk = ilosc_sztuk - @ilosc WHERE id = @towar_id
+			PRINT N'Aktualnie taka ilosc towaru jest dostepna w sklepie. Zamowienie zostanie zrealizowane natychmiast!'
+		END
+		FETCH NEXT FROM zakupione_kursor INTO @towar_id, @ilosc
+	END
+
+	CLOSE zakupione_kursor
+	DEALLOCATE zakupione_kursor
+END;
+GO
+
+--Test, kilka sztuk dwoch roznych produktow, towar dostepny.
+INSERT INTO koszyk(zakup_id, towar_id, ilosc, cena_netto, podatek) VALUES
+	(1, 1, 2, 59.99, 0.22), (2, 2, 5, 99.00, 0.22);
+GO
+
+--Test, kilka sztuk dwoch roznych produktow, towar niedostepny.
+INSERT INTO koszyk(zakup_id, towar_id, ilosc, cena_netto, podatek) VALUES
+	(3, 3, 50, 23.00, 0.22), (4, 4, 10, 59.00, 0.22);
+GO
+
+--Wyswietlenie zawartosci tabeli pracownik.
+SELECT * FROM towar;
+GO
+
 --=================================================================================================================================================
 --Zadanie 3
 --Utworz widok klient_statystyki(id,imie,nazwisko,ilosc_zakupow,suma_wydanej_kasy_brutto), gdzie id, imie, nazwisko to dane z tabeli klient,
