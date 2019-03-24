@@ -213,3 +213,107 @@ GO
 --modyfikacje danych klienta - dane klienta maja byc zmodyfikowane w tabeli klient,
 --nalezy przewidziec przypadek, ze jest jednoczesnie wiele dodawanych, usuwanych i modyfikowanych danych.
 --=================================================================================================================================================
+
+--Usuniecie wyzwalacza dodanie_klienta, jesli istnieje.
+DROP TRIGGER IF EXISTS dodanie_klienta;
+GO
+
+--Utworzenie wyzwalacza dodanie_klienta.
+CREATE TRIGGER dodanie_klienta ON klient_statystyki
+INSTEAD OF INSERT AS
+BEGIN
+	DECLARE dodanie_klienta_kursor CURSOR FOR SELECT imie, nazwisko FROM inserted
+	DECLARE @imie VARCHAR(20), @nazwisko VARCHAR(40)
+
+	OPEN dodanie_klienta_kursor
+	FETCH NEXT FROM dodanie_klienta_kursor INTO @imie, @nazwisko
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		INSERT INTO klient(imie, nazwisko) VALUES(@imie, @nazwisko)
+		FETCH NEXT FROM dodanie_klienta_kursor INTO @imie, @nazwisko
+	END
+
+	CLOSE dodanie_klienta_kursor
+	DEALLOCATE dodanie_klienta_kursor
+END;
+GO
+
+--Test, wstawienie dwoch rekordow do widoku klient_statystyki.
+INSERT INTO klient_statystyki(imie, nazwisko) VALUES
+	('Jan', 'Brzoza'), ('Barbara', 'Kot');
+GO
+
+--Wyswietlenie zawartosci tabeli klient.
+SELECT * FROM klient;
+GO
+
+--*************************************************************************************
+
+--Usuniecie wyzwalacza usuniecie_klienta, jesli istnieje.
+DROP TRIGGER IF EXISTS usuniecie_klienta;
+GO
+
+--Utworzenie wyzwalacza usuniecie_klienta.
+CREATE TRIGGER usuniecie_klienta ON klient_statystyki
+INSTEAD OF DELETE AS
+BEGIN
+	DECLARE usuniecie_klienta_kursor CURSOR FOR SELECT id FROM deleted
+	DECLARE @id INTEGER
+
+	OPEN usuniecie_klienta_kursor
+	FETCH NEXT FROM usuniecie_klienta_kursor INTO @id
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		DELETE FROM klient WHERE id = @id
+		FETCH NEXT FROM usuniecie_klienta_kursor INTO @id
+	END
+
+	CLOSE usuniecie_klienta_kursor
+	DEALLOCATE usuniecie_klienta_kursor
+END;
+GO
+
+--Test, usuniecie dwoch rekordow z widoku klient_statystyki.
+DELETE FROM klient_statystyki WHERE id IN(1, 3);
+GO
+
+--Wyswietlenie zawartosci tabeli klient.
+SELECT * FROM klient;
+GO
+
+--*************************************************************************************
+
+--Usuniecie wyzwalacza modyfikacja_klienta, jesli istnieje.
+DROP TRIGGER IF EXISTS modyfikacja_klienta;
+GO
+
+--Utworzenie wyzwalacza modyfikacja_klienta.
+CREATE TRIGGER modyfikacja_klienta ON klient_statystyki
+INSTEAD OF UPDATE AS
+BEGIN
+	DECLARE modyfikacja_klienta_kursor CURSOR FOR SELECT id, imie, nazwisko FROM inserted
+	DECLARE @id INTEGER, @imie VARCHAR(20), @nazwisko VARCHAR(40)
+
+	OPEN modyfikacja_klienta_kursor
+	FETCH NEXT FROM modyfikacja_klienta_kursor INTO @id, @imie, @nazwisko
+
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		UPDATE klient SET imie = @imie, nazwisko = @nazwisko WHERE id = @id
+		FETCH NEXT FROM modyfikacja_klienta_kursor INTO @id, @imie, @nazwisko
+	END
+
+	CLOSE modyfikacja_klienta_kursor
+	DEALLOCATE modyfikacja_klienta_kursor
+END;
+GO
+
+--Test, zmodyfikowanie dwoch rekordow w widoku klient_statystyki.
+UPDATE klient_statystyki SET imie = 'Artur', nazwisko = 'Baran' WHERE id IN(2, 4);
+GO
+
+--Wyswietlenie zawartosci tabeli klient.
+SELECT * FROM klient;
+GO
