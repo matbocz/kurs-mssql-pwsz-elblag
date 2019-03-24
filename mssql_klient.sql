@@ -187,6 +187,24 @@ GO
 --i laczna kwote brutto [czyli (1+podatek)*cena_netto] wydanych pieniedzy podczas tych zakupow.
 --=================================================================================================================================================
 
+--Usuniecie widoku klient_statystyki, jesli istnieje.
+DROP VIEW IF EXISTS klient_statystyki;
+GO
+
+--Utworzenie widoku klient_statystyki.
+CREATE VIEW klient_statystyki AS
+	SELECT kl.id, kl.imie, kl.nazwisko, 
+	COUNT(z.klient_id) AS ilosc_zakupow,
+	SUM(ko.ilosc * ((1 + ko.podatek) * ko.cena_netto)) AS suma_wydanej_kasy_brutto
+	FROM klient kl LEFT JOIN zakup z ON kl.id = z.klient_id
+	LEFT JOIN koszyk ko ON z.id = ko.zakup_id
+	GROUP BY kl.id, kl.imie, kl.nazwisko;
+GO
+
+--Wyswietlenie zawartosci widoku klient_statystyki.
+SELECT * FROM klient_statystyki;
+GO
+
 --=================================================================================================================================================
 --Zadanie 4
 --Utworz wyzwalacze dzialajace na widoku klient_statystyki i reagujace na:
